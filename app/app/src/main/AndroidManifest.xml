@@ -10,7 +10,11 @@
         android:supportsRtl="true"
         android:fullBackupContent="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:configChanges="orientation|screenSize"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

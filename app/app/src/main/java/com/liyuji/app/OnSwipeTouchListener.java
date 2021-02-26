@@ -1,4 +1,4 @@
-package com.shashank.platform.loginui;
+package com.liyuji.app;
 
 import android.content.Context;
 import android.view.GestureDetector;
@@ -11,7 +11,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
     private final GestureDetector gestureDetector;
 
-    public OnSwipeTouchListener (Context ctx){
+    public OnSwipeTouchListener(Context ctx){
         gestureDetector = new GestureDetector(ctx, new GestureListener());
     }
 

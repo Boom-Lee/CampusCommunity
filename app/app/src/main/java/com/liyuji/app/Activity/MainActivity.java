@@ -1,156 +1,145 @@
 package com.liyuji.app.Activity;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.liyuji.app.R;
+import com.liyuji.app.fragment.AnonymousFragment;
+import com.liyuji.app.fragment.ArticleFragment;
+import com.liyuji.app.fragment.PersonalFragment;
+import com.liyuji.app.fragment.ScheduleFragment;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * @author L
+ */
 public class MainActivity extends AppCompatActivity {
-    public static int conn_on=0;//用于判断连接是否成功
-    public static String password_receive;//用于接收数据库查询的返回数据
+
+    private ViewPager viewPager;
+    private MenuItem menuItem;
+
+    //底部导航对象
+    private BottomNavigationView bottomNavigationView;
+
+    //存储页面对象
+    private List<Fragment> fragmentList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        final EditText username = (EditText) findViewById(R.id.IDinput);//取得输入框的对象
-        final EditText password = (EditText) findViewById(R.id.code_input);
-
-        final TextView conn = (TextView) findViewById(R.id.conn);//取得网络提示框的对象
-        conn.setBackgroundColor(Color.RED);//默认设成红色
-        final Handler handler = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message message) {
-                switch (conn_on)//根据返回值判断网络连接是否成功
-                {
-                    case 1:conn.setText("网络连接成功");conn.setBackgroundColor(Color.GREEN);break;
-                    case 2:conn.setText("网络连接失败");break;
-                }
-                return false;
-            }
-        });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message msg = new Message();
-                try {
-                    connect.getConnection("campus_community");//执行连接测试
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                handler.sendMessage(msg);//跳转到handler1
-            }
-        }).start();
-
-        Button Register = findViewById(R.id.log_on_button);
-        Register.setOnClickListener(new View.OnClickListener() {//注册
-            @Override
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            connect.insertIntoData(username.getText().toString(),password.getText().toString());//调用插入数据库语句
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-            }
-        });
-
-        final Handler handler2 = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message message) {
-                if(password_receive.equals(password.getText().toString()))//判断输入密码与取得的密码是否相同
-                    Toast.makeText(MainActivity.this, "登陆成功 " + password_receive, Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(MainActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        Button logon = findViewById(R.id.log_on);
-        logon.setOnClickListener(new View.OnClickListener() {//登录
-            @Override
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Message msg = new Message();
-                        try {
-                            password_receive=connect.querycol(username.getText().toString());//调用查询语句，获得账号对应的密码
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }handler2.sendMessage(msg);//跳转到handler2
-                    }
-                }).start();
-            }
-        });
-
+        renderMainActivity();
     }
 
-//    ImageView imageView;
-//    TextView textView , forgetPassword;
-//    EditText userName ,passWord;
-//    int count = 0;
+    private void renderMainActivity() {
+        setContentView(R.layout.activity_main);
+        viewPager = findViewById(R.id.viewpager);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        setContentView(R.layout.activity_main);
-//
-//        imageView = findViewById(R.id.imageView);
-//        textView = findViewById(R.id.textView);
-//        forgetPassword = findViewById(R.id.forgetPassword);
-//        userName = findViewById(R.id.userName);
-//        passWord = findViewById(R.id.passWord);
-//        imageView.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
-//            public void onSwipeTop() {
+
+        //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉\
+        //        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.id_article:
+                                viewPager.setCurrentItem(0);
+                                return true;
+                            case R.id.id_schedule:
+                                viewPager.setCurrentItem(1);
+                                return true;
+
+                            case R.id.id_anonymous:
+                                viewPager.setCurrentItem(2);
+                                return true;
+
+                            case R.id.id_personal:
+                                viewPager.setCurrentItem(3);
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (menuItem != null) {
+                    menuItem.setChecked(false);
+                } else {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                menuItem = bottomNavigationView.getMenu().getItem(position);
+                menuItem.setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+        //禁止ViewPager滑动
+//        viewPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return true;
 //            }
-//
-//            public void onSwipeRight() {
-//                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//                if (count == 0) {
-//                    imageView.setImageResource(R.drawable.good_night_img);
-//                    textView.setText("Night");
-//                    count = 1;
-//                } else {
-//                    imageView.setImageResource(R.drawable.good_morning_img);
-//                    textView.setText("Morning");
-//                    count = 0;
-//                }
-//            }
-//
-//            public void onSwipeLeft() {
-//                if (count == 0) {
-//                    imageView.setImageResource(R.drawable.good_night_img);
-//                    textView.setText("Night");
-//                    count = 1;
-//                } else {
-//                    imageView.setImageResource(R.drawable.good_morning_img);
-//                    textView.setText("Morning");
-//                    count = 0;
-//
-//                }
-//            }
-//
-//            public void onSwipeBottom() {
-//            }
-//
 //        });
-//    }
+
+        setupViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+
+        //向ViewPager添加各页面
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new ArticleFragment());
+        fragmentList.add(new ScheduleFragment());
+        fragmentList.add(new AnonymousFragment());
+        fragmentList.add(new PersonalFragment());
+        MyFragAdapter myAdapter = new MyFragAdapter(getSupportFragmentManager(), this, fragmentList);
+        viewPager.setAdapter(myAdapter);
+    }
+
+    class MyFragAdapter extends FragmentStatePagerAdapter {
+        Context context;
+        List<Fragment> listFragment;
+
+        public MyFragAdapter(FragmentManager fm, Context context, List<Fragment> listFragment) {
+            super(fm);
+            this.context = context;
+            this.listFragment = listFragment;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return listFragment.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return listFragment.size();
+        }
+
+    }
 }

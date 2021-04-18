@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/id_article"
+            android:icon="@drawable/selector_icon_article"
+            android:checked="true"
+            android:title="@string/Article" />
+        <item
+            android:id="@+id/id_schedule"
+            android:icon="@drawable/selector_icon_schedule"
+            android:title="@string/Schedule" />
+
+        <item
+            android:id="@+id/id_anonymous"
+            android:icon="@drawable/selector_icon_anonymous"
+            android:title="@string/Anonymous" />
+        <item
+            android:id="@+id/id_personal"
+            android:icon="@drawable/selector_icon_personal"
+            android:title="@string/Personal" />
+    </group>
+</menu>

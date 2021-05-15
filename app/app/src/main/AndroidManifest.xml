@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.liyuji.app">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 可选权限说明 -->
@@ -10,42 +11,56 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许写手机存储（必须） -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" /> <!-- GUI自动填充验证码功能（非必须） -->
     <uses-permission android:name="android.permission.READ_SMS" /> <!-- 读写权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
+        android:configChanges="orientation|screenSize"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.App">
-        <activity android:name=".Activity.ArticleActivity"></activity>
-        <activity android:name=".Activity.DeliverscheduleActivity" />
-        <activity android:name=".Activity.FollowActivity" />
-        <activity android:name=".Activity.PersonalpageActivity" />
-        <activity android:name=".Activity.DeliverarticleActivity" />
-        <activity android:name=".Activity.MainActivity" /> <!-- <activity -->
-        <!-- android:name="com.mob.tools.MobUIShell" -->
-        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
-        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
-        <!-- android:windowSoftInputMode="stateHidden|adjustResize" /> -->
-        <activity
-            android:name=".Activity.LoginActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustPan">
+        android:theme="@style/Theme.App"
+        tools:replace="android:icon,android:theme">
+        <activity android:name=".comment.CommentActivity"></activity>
+        <activity android:name=".userInfoActivity.Edituserschool" />
+        <activity android:name=".userInfoActivity.Edituseremail" />
+        <activity android:name=".userInfoActivity.Edituserintro" />
+        <activity android:name=".userInfoActivity.Editusermobile" />
+        <activity android:name=".userInfoActivity.Editusernickname" />
+        <activity android:name=".userInfoActivity.EditinfoActivity" />
+        <activity android:name=".activity.ScheduleActivity" />
+        <activity android:name=".activity.LikeActivity" />
+        <activity android:name=".activity.BrowseActivity" />
+        <activity android:name=".activity.ArticleActivity" />
+        <activity android:name=".activity.DeliverscheduleActivity" />
+        <activity android:name=".activity.FollowActivity" />
+        <activity android:name=".activity.PersonalpageActivity" />
+        <activity android:name=".activity.DeliverarticleActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.ForgetActivity" />
+        <activity android:name=".activity.EditpasswordActivity" />
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.RegisterActivity" />
-        <activity android:name=".Activity.ForgetActivity" />
-        <activity android:name=".Activity.EditpasswordActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.liyuji.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
     </application>
 
 </manifest>

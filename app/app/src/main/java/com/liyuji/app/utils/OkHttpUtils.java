@@ -1,6 +1,8 @@
 package com.liyuji.app.utils;
 
 
+import android.content.Context;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -19,7 +21,7 @@ import okhttp3.RequestBody;
 
 public class OkHttpUtils {
     private static final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-//    private static Context context;
+    private static Context context;
     private static final OkHttpClient CLIENT = new OkHttpClient.Builder()
             .connectTimeout(3000, TimeUnit.SECONDS)
             .writeTimeout(3000, TimeUnit.SECONDS)
@@ -74,17 +76,38 @@ public class OkHttpUtils {
 
     /**
      * 图片上传
+     * url 后台接口
+     * filePath 文件路径
      */
     public static void upload(String url, String filePath, OkHttpCallback callback) {
         File file = new File(filePath);
 
         RequestBody formBody = new okhttp3.MultipartBody.Builder()
                 .setType(okhttp3.MultipartBody.FORM)
-                .addFormDataPart("userpic",
+                .addFormDataPart("file",
                         file.getName(),
                         RequestBody.create(MediaType.parse("application/octet-stream"), file))
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+        CLIENT.newCall(request).enqueue(callback);
+    }
 
-                .addFormDataPart("type", "user_upload")
+
+    /**
+     * 图片上传
+     * url 后台接口
+     * userId Y哦
+     * filePath 文件路径
+     */
+    public static void upload(String url,int userId, String filePath, OkHttpCallback callback) {
+        File file = new File(filePath);
+
+        RequestBody formBody = new okhttp3.MultipartBody.Builder()
+                .setType(okhttp3.MultipartBody.FORM)
+                .addFormDataPart("userId", String.valueOf(userId))
+                .addFormDataPart("file",
+                        file.getName(),
+                        RequestBody.create(MediaType.parse("application/octet-stream"), file))
                 .build();
         Request request = new Request.Builder().url(url).post(formBody).build();
         CLIENT.newCall(request).enqueue(callback);

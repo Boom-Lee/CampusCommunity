@@ -25,15 +25,27 @@
     <string name="exit">退出登录</string>
     <string name="me">我</string>
     <string name="userNickname">渣崽弟弟</string>
-    <string name="browse_count">发布</string>
+    <string name="browse_count">浏览</string>
     <string name="like_count">喜欢</string>
     <string name="follow_count">关注</string>
     <string name="edit_userInfo">修改资料</string>
     <string name="deliver_schedule">新建日程</string>
-    <string name="schedule_title">标题</string>
-    <string name="schedule_content">说明</string>
-    <string name="schedule_location">地点</string>
+    <string name="schedule_title">标&#12288;&#12288;题</string>
+    <string name="schedule_content">说&#12288;&#12288;明</string>
+    <string name="schedule_location">地&#12288;&#12288;点</string>
     <string name="schedule_starttime">请点击此处设置开始时间</string>
     <string name="schedule_endtime">请点击此处设置结束时间</string>
+    <string name="title_activity_text">Text</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="EndTime">结束时间</string>
+    <string name="StartTime">开始时间</string>
+    <string name="editInfo">编辑资料</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

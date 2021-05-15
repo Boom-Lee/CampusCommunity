@@ -61,6 +61,10 @@ public class SharedPreferencesUtil {
         return sharedPreferences.getString(key, "");
     }
 
+    public int readInt(String key) {
+        return sharedPreferences.getInt(key,0);
+    }
+
     public Object readObject(String key, Class clazz) {
         String str = sharedPreferences.getString(key, "");
         Gson gson = new GsonBuilder()

@@ -15,11 +15,12 @@
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
-    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay">#ED000000</color>
     <color name="main">#FD8C00</color>
     <color name="background_color">#eeeeee</color>
     <color name="toolbar_color">#fafafa</color>
     <color name="Text_color">#333333</color>
     <color name="Text_color2">#939393</color>
     <color name="line">#e5e5e5</color>
+    <color name="AnonBgColor">#ED0C0C0C</color>
 </resources>

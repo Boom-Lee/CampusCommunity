@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    android:orientation="vertical"
-    tools:context=".Activity.DeliverscheduleActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,12 +77,13 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/userchedule_title"
+                android:id="@+id/userSchedule_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
                 android:background="#FFFFFF"
                 android:hint="@string/schedule_title"
                 android:textColor="#888888"
@@ -115,9 +115,10 @@
                 android:id="@+id/userSchedule_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
                 android:background="#FFFFFF"
                 android:hint="@string/schedule_content"
                 android:textColor="#888888"
@@ -150,9 +151,10 @@
                 android:id="@+id/userSchedule_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
                 android:background="#FFFFFF"
                 android:hint="@string/schedule_location"
                 android:textColor="#888888"
@@ -171,13 +173,23 @@
             android:orientation="horizontal">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/StartTime"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/userSchedule_starttime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="#FFFFFF"
+                android:layout_marginEnd="24dp"
                 android:hint="@string/schedule_starttime"
                 android:textColor="#888888"
                 android:textSize="16sp" />
@@ -194,15 +206,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/EndTime"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/userSchedule_endtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="#FFFFFF"
+                android:layout_marginEnd="24dp"
                 android:hint="@string/schedule_endtime"
                 android:textColor="#888888"
                 android:textSize="16sp" />
@@ -216,5 +237,7 @@
 
 
     </LinearLayout>
+
+
 
 </LinearLayout>

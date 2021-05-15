@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    android:orientation="vertical"
-    tools:context=".Activity.DeliverarticleActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,21 +55,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/deliver_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginEnd="18dp"
             android:background="@color/white"
             android:gravity="top"
-            android:minLines="10"
-            android:hint="编辑内容"/>
+            android:hint="分享新鲜事"
+            android:minLines="10" />
+
+        <TextView
+            android:id="@+id/deliver_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
+            android:text="添加图片" />
+
+        <ImageView
+            android:id="@+id/show_img"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp" />
+
     </LinearLayout>
 
 </LinearLayout>

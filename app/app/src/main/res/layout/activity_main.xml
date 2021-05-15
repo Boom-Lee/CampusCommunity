@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <RelativeLayout
         android:id="@+id/activity_with_view_pager"
@@ -22,8 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="1dp"
             android:background="@android:color/white"
+            app:itemIconTint="@color/selector_color"
+            app:itemTextColor="@color/selector_color"
             app:menu="@menu/menu_bnve" />
 
     </RelativeLayout>

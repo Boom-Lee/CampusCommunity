@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/AnonBgColor"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,7 +16,7 @@
             android:id="@+id/anonymous_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F0F0F0">
+            android:background="@color/black">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -23,7 +24,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/anonymous_title"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
 
             <ImageView
@@ -42,13 +43,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <ListView
             android:id="@+id/anonymous_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:divider="@color/AnonBgColor"
+            android:dividerHeight="5dp"
+            />
 
     </LinearLayout>
 

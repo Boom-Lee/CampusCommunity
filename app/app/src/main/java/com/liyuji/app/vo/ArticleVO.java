@@ -1,5 +1,7 @@
 package com.liyuji.app.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 public class ArticleVO {
@@ -11,6 +13,7 @@ public class ArticleVO {
 
     public String articleImg;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     public Date articleDate;
 
     public String articleStatus;
@@ -19,13 +22,19 @@ public class ArticleVO {
 
     public String userNickname;
 
-    public int getArticleId() {
-        return articleId;
+    public Date getArticleDate() {
+        return articleDate;
     }
 
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
+    public int getBrowseCount() {
+        return browseCount;
     }
+
+    public void setBrowseCount(int browseCount) {
+        this.browseCount = browseCount;
+    }
+
+    public int browseCount;
 
     @Override
     public String toString() {
@@ -38,8 +47,17 @@ public class ArticleVO {
                 ", articleStatus='" + articleStatus + '\'' +
                 ", communityId=" + communityId +
                 ", userNickname='" + userNickname + '\'' +
+                ", browseCount=" + browseCount +
                 ", userHeadImg='" + userHeadImg + '\'' +
                 '}';
+    }
+
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
     public Integer getUserId() {
@@ -64,10 +82,6 @@ public class ArticleVO {
 
     public void setArticleImg(String articleImg) {
         this.articleImg = articleImg;
-    }
-
-    public Date getArticleDate() {
-        return articleDate;
     }
 
     public void setArticleDate(Date articleDate) {

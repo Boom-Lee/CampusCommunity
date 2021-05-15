@@ -37,7 +37,7 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/white"
@@ -45,32 +45,23 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/headImg"
-                android:layout_width="0dp"
+                android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginEnd="14dp"
-                android:src="@drawable/headimg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/userNickname"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.228" />
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/userNickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="219dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
                 android:text="@string/userNickname"
                 android:textColor="@color/Text_color"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/headImg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/headImg"
-                app:layout_constraintTop_toTopOf="@+id/headImg" />
+                android:textSize="20sp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -85,6 +76,7 @@
             android:gravity="center">
 
             <LinearLayout
+                android:id="@+id/browse_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -95,7 +87,7 @@
                     android:id="@+id/browse_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text="0"
                     android:textColor="@color/Text_color" />
 
                 <TextView
@@ -106,6 +98,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/like_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -116,7 +109,7 @@
                     android:id="@+id/like_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text="0"
                     android:textColor="@color/Text_color" />
 
                 <TextView
@@ -127,6 +120,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/follow_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -150,131 +144,126 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/editUserInfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:background="@color/white"
+        android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/editUserInfo"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/edit_userInfo"
+            android:textColor="@color/Text_color"
+            android:textSize="16sp" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/white">
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="300dp"
-                android:text="@string/edit_userInfo"
-                android:textColor="@color/Text_color"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/arrow1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="right">
 
             <ImageView
-                android:id="@+id/arrow1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/arrows"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text1"
-                app:layout_constraintTop_toTopOf="parent"
-                custom:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:src="@mipmap/arrows" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+
 
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@color/line" />
 
     <LinearLayout
+        android:id="@+id/editPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/editPassword"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/editPassword"
+            android:textColor="@color/Text_color"
+            android:textSize="16sp" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/white">
-
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="300dp"
-                android:text="@string/editPassword"
-                android:textColor="@color/Text_color"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/arrow2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="right">
 
             <ImageView
-                android:id="@+id/arrow2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/arrows"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text2"
-                app:layout_constraintTop_toTopOf="parent"
-                custom:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/white">
-
-            <TextView
-                android:id="@+id/text3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="300dp"
-                android:text="关于我们"
-                android:textColor="@color/Text_color"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/arrow3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="22dp"
+                android:src="@mipmap/arrows" />
 
-            <ImageView
-                android:id="@+id/arrow3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/arrows"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text3"
-                app:layout_constraintTop_toTopOf="parent"
-                custom:layout_constraintEnd_toEndOf="parent" />
+        </RelativeLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line" />
     </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/line" />
+
+    <LinearLayout
+        android:id="@+id/AboutUs"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="关于我们"
+            android:textColor="@color/Text_color"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="right">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:src="@mipmap/arrows" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/line" />
 
 
     <LinearLayout
@@ -294,5 +283,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
     </LinearLayout>
+
 </LinearLayout>

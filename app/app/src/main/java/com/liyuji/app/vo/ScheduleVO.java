@@ -1,7 +1,12 @@
 package com.liyuji.app.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
+/**
+ * @author L
+ */
 public class ScheduleVO {
 
     public int scheduleId;
@@ -9,14 +14,12 @@ public class ScheduleVO {
     public String scheduleTitle;
     public String scheduleContent;
     public String scheduleLocation;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     public Date scheduleStarttime;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     public Date scheduleEndtime;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     public Date scheduleCreattime;
-    public String userName;
-
-    public int getScheduleId() {
-        return scheduleId;
-    }
 
     @Override
     public String toString() {
@@ -29,8 +32,11 @@ public class ScheduleVO {
                 ", scheduleStarttime=" + scheduleStarttime +
                 ", scheduleEndtime=" + scheduleEndtime +
                 ", scheduleCreattime=" + scheduleCreattime +
-                ", userName='" + userName + '\'' +
                 '}';
+    }
+
+    public int getScheduleId() {
+        return scheduleId;
     }
 
     public void setScheduleId(int scheduleId) {
@@ -91,14 +97,6 @@ public class ScheduleVO {
 
     public void setScheduleCreattime(Date scheduleCreattime) {
         this.scheduleCreattime = scheduleCreattime;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 }
 

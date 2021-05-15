@@ -1,89 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="4dp">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/userchedule_title"
+            android:id="@+id/schedule_starttime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="315dp"
-            android:background="#FFFFFF"
-            android:hint="@string/schedule_title"
-            android:textColor="#888888"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/userSchedule_location"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/userSchedule_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="57dp"
-            android:background="#FFFFFF"
-            android:hint="@string/schedule_content"
-            android:minLines="5"
-            android:textColor="#888888"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/userSchedule_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="#FFFFFF"
-            android:hint="@string/schedule_location"
-            android:textColor="#888888"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userchedule_title"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/userSchedule_starttime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="11dp"
-            android:background="#FFFFFF"
+            android:layout_marginEnd="10dp"
             android:hint="开始时间"
-            android:textColor="#888888"
-            android:textSize="16sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/userSchedule_endtime"
-            app:layout_constraintEnd_toStartOf="@+id/userSchedule_endtime"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
 
         <TextView
-            android:id="@+id/userSchedule_endtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_marginEnd="10dp"
+            android:text="—"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/schedule_endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:hint="结束时间"
-            android:textColor="#888888"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userSchedule_starttime"
-            app:layout_constraintTop_toBottomOf="@+id/userSchedule_content" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/schedule_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/schedule_title"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>
 

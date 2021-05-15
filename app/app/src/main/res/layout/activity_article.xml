@@ -22,130 +22,242 @@
                 android:layout_height="30dp"
                 android:layout_gravity="left"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/return_1"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:background="@mipmap/return_1"
+                android:gravity="center" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="动态内容"
+                android:text="@string/Article"
                 android:textColor="#000000"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/article_del"
+                android:layout_width="64dp"
+                android:layout_height="33dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="24dp"
+                android:background="@color/main"
+                android:gravity="center"
+                android:text="刪除"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
         </androidx.appcompat.widget.Toolbar>
 
     </LinearLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/headImg"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/headimg"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="1dp"
-            app:layout_constraintEnd_toStartOf="@+id/article_delivertime"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/userNickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/userNickname"
-            android:textColor="@color/Text_color"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/headImg"
-            app:layout_constraintTop_toTopOf="@+id/headImg" />
-
-
-        <TextView
-            android:id="@+id/article_delivertime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="267dp"
-            android:text="2020-01-01"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/headImg"
-            app:layout_constraintTop_toBottomOf="@+id/userNickname" />
-
-
-        <TextView
-            android:id="@+id/article_content"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="22dp"
-            android:minLines="3"
-            android:text="@string/userNickname"
-            android:textColor="#666666"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headImg" />
-
-        <GridLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:columnCount="1"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/article_content"
-            tools:layout_editor_absoluteX="0dp">
+            android:layout_marginBottom="30dp">
 
-            <ImageView
-                android:id="@+id/article_imgcontent"
-                android:layout_width="100dp"
-                android:layout_height="300dp"
-                android:layout_columnWeight="1"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/good_morning_img" />
-        </GridLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/headImg"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="1dp"
-            android:background="@android:color/white" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:orientation="vertical">
 
-    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/userNickname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/article_delivertime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="30dp"
+                            android:gravity="right">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="浏览次数  "
+                                    android:textColor="@color/Text_color" />
+
+                                <TextView
+                                    android:id="@+id/browse_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/Text_color" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="20dp" />
+
+                    </LinearLayout>
+
+                    <!--    <GridLayout-->
+                    <!--        android:layout_width="match_parent"-->
+                    <!--        android:layout_height="wrap_content"-->
+                    <!--        android:columnCount="1"-->
+                    <!--        android:orientation="horizontal">-->
+
+                    <ImageView
+                        android:id="@+id/article_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_columnWeight="1"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:scaleType="centerCrop" />
+
+                    <!--    </GridLayout>-->
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="评论"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.8dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@color/line" />
+
+                    <ListView
+                        android:id="@+id/comment_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="end|bottom|center"
+            android:background="@color/toolbar_color"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/comment_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/comment" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="评论"
+                    android:textColor="@color/Text_color2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/like_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/like_img"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/like" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点赞"
+                    android:textColor="@color/Text_color2" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </LinearLayout>

@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class UserVO {
 
-
     public int userId;
 
     public String userName;
@@ -23,7 +22,7 @@ public class UserVO {
 
     public String userIntro;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd")
     public Date userBirthday;
 
     public String userEmail;

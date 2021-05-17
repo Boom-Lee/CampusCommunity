@@ -31,6 +31,7 @@ import com.liyuji.app.activity.FollowActivity;
 import com.liyuji.app.activity.LikeActivity;
 import com.liyuji.app.activity.LoginActivity;
 import com.liyuji.app.R;
+import com.liyuji.app.activity.PersonalpageActivity;
 import com.liyuji.app.userInfoActivity.EditinfoActivity;
 import com.liyuji.app.utils.OkHttpCallback;
 import com.liyuji.app.utils.OkHttpUtils;
@@ -57,7 +58,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     TextView Follow_count;
     TextView Like_count;
     TextView Browse_count;
-    LinearLayout browse_btn, like_btn, follow_btn;
+    LinearLayout browse_btn, like_btn, follow_btn,mUserBtn;
     CircleImageView headImg;
     Uri ImgUri;
     int userId;
@@ -96,26 +97,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                     public void onClick(View v) {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                         dialog.setTitle("添加图片");
-//                        dialog.setItems(new String[]{"拍照", "相册"},
-//                                new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        // 点击后，具体处理，
-//                                        Log.i("tag", "which " + which);
-//                                        Log.i("tag", "dialog " + dialog);
-//                                        dialog.dismiss();
-//                                        switch (which) {
-//                                            case 0:
-//                                                break;
-//                                            case 1:
-//                                                //打开相册
-//                                                gotoPickImage();
-//                                                break;
-//                                            default:
-//                                                break;
-//                                        }
-//                                    }
-//                                });
                         dialog.setItems(new String[]{"相册"}, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -160,8 +141,10 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         like_btn = root.findViewById(R.id.like_btn);
         follow_btn = root.findViewById(R.id.follow_btn);
         headImg = root.findViewById(R.id.headImg);
+        mUserBtn = root.findViewById(R.id.user_btn);
         LinearLayout exit = root.findViewById(R.id.exit);
 
+        mUserBtn.setOnClickListener(this);
         browse_btn.setOnClickListener(this);
         like_btn.setOnClickListener(this);
         follow_btn.setOnClickListener(this);
@@ -336,6 +319,11 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                 Intent intentE = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intentE);
                 Toast.makeText(getActivity(), "退出登录成功！", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.user_btn:
+               Intent intentU = new Intent(getActivity(), PersonalpageActivity.class);
+               intentU.putExtra("userId",userId);
+               startActivity(intentU);
                 break;
             default:
                 break;

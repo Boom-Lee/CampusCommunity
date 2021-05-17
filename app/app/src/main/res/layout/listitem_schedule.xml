@@ -10,52 +10,90 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/schedule_starttime"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:hint="开始时间"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始时间    "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/schedule_starttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:hint="开始时间" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="—"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/schedule_endtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:hint="结束时间"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结束时间    "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginEnd="10dp"-->
+            <!--                android:text="—"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="16sp" />-->
+
+            <TextView
+                android:id="@+id/schedule_endtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="结束时间" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_marginStart="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="内&#12288;&#12288;容    "
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginEnd="10dp"-->
+        <!--                android:text="—"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="16sp" />-->
 
         <TextView
             android:id="@+id/schedule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="@string/schedule_title"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:hint="@string/schedule_title" />
+
     </LinearLayout>
 
 </LinearLayout>

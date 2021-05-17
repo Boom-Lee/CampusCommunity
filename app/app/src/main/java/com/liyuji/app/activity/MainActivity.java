@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private MenuItem menuItem;
 
-    private static final String TAG = "MainActivity";
+    private boolean isGetData=false;
 
+    private static final String TAG = "MainActivity";
 
     //底部导航对象
     private BottomNavigationView bottomNavigationView;
@@ -49,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        deLogin();
+
+        applyForRight();
+
+        renderMainActivity();
+
+        ActToFragment();
+    }
+
+    private void deLogin() {
         SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(MainActivity.this);
         //判断share...里存的isLogin值   判断登录状态
         if (util.readBoolean("isLogin")) {
@@ -60,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         //设置View为登录界面
         setContentView(R.layout.activity_main);
+    }
 
-        if (Build.VERSION.SDK_INT >= 23) {
+    private void applyForRight() {
+        if (Build.VERSION.SDK_INT >= 24) {
             int REQUEST_CODE_CONTACT = 101;
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             //验证是否许可权限
@@ -72,15 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
-        renderMainActivity();
-
-        Intent intent = getIntent();
-
-        ActToFragment(intent);
     }
 
-    private void ActToFragment(Intent intent) {
+    private void ActToFragment() {
+        Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
         switch (id) {
             case 1:
@@ -91,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(0);
+//                bottomNavigationView.setBackgroundColor(Color.WHITE);
                 System.out.println("跳转至ArticleFragment   id:" + id);
                 break;
             case 2:
@@ -101,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(1);
+//                bottomNavigationView.setBackgroundColor(Color.WHITE);
                 System.out.println("跳转至ScheduleFragment   id:" + id);
                 break;
             case 3:
@@ -111,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(2);
+//                bottomNavigationView.setBackgroundColor(Color.BLACK);
                 System.out.println("跳转至AnonymousFragment   id:" + id);
-
                 break;
             case 4:
                 getSupportFragmentManager()
@@ -122,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(3);
+//                bottomNavigationView.setBackgroundColor(Color.WHITE);
                 System.out.println("跳转至PersonalFragment   id:" + id);
                 break;
             default:
@@ -133,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = findViewById(R.id.viewpager);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
 
         //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉\\
         //        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -150,16 +160,16 @@ public class MainActivity extends AppCompatActivity {
                                 bottomNavigationView.setBackgroundColor(Color.WHITE);
                                 viewPager.setCurrentItem(1);
                                 return true;
-
                             case R.id.id_anonymous:
                                 bottomNavigationView.setBackgroundColor(Color.BLACK);
                                 viewPager.setCurrentItem(2);
                                 return true;
-
                             case R.id.id_personal:
                                 bottomNavigationView.setBackgroundColor(Color.WHITE);
                                 viewPager.setCurrentItem(3);
                                 return true;
+                            default:
+                                break;
                         }
                         return false;
                     }
@@ -198,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-
         //向ViewPager添加各页面
         fragmentList = new ArrayList<>();
         fragmentList.add(new ArticleFragment());
@@ -229,5 +238,7 @@ public class MainActivity extends AppCompatActivity {
             return listFragment.size();
         }
 
+
     }
+
 }

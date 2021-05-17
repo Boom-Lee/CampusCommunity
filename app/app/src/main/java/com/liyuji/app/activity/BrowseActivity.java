@@ -32,7 +32,6 @@ public class BrowseActivity extends AppCompatActivity implements View.OnClickLis
     BrowseAdapter adapter;
     LayoutInflater inflater;
     int articleId = 0;
-    int checkUserId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class BrowseActivity extends AppCompatActivity implements View.OnClickLis
                         browseVO.userId = jsonObject.getInteger("userId");
                         browseVO.articleId = jsonObject.getInteger("articleId");
                         browseVO.userBrowseDate = jsonObject.getDate("userBrowseDate");
-                        browseVO.userNickName = jsonObject.getString("userNickname");
+                        browseVO.userNickName = jsonObject.getString("userNickName");
                         browseVO.userHeadImg = jsonObject.getString("userHeadImg");
                         browseVO.articleContent = jsonObject.getString("articleContent");
                         browseVO.articleImg = jsonObject.getString("articleImg");
@@ -96,12 +95,9 @@ public class BrowseActivity extends AppCompatActivity implements View.OnClickLis
                 Adapter itemAdapter = parent.getAdapter();
                 BrowseVO map = (BrowseVO) itemAdapter.getItem(position);
                 articleId = map.getArticleId();
-                //artcle需要判断 所以随便给个值
-                checkUserId = 0;
-                System.out.println("当前动态点击编号：" + articleId + " 当前动态发布的用户编号：" + checkUserId);
+
                 Intent intent = new Intent(BrowseActivity.this, ArticleActivity.class);
                 intent.putExtra("articleId", articleId);
-                intent.putExtra("checkUserId", checkUserId);
                 startActivity(intent);
             }
         });

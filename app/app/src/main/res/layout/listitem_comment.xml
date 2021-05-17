@@ -55,19 +55,21 @@
 
             </LinearLayout>
 
-
             <TextView
                 android:id="@+id/comment_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp" />
 
-            <ListView
-                android:id="@+id/reply_list"
+            <TextView
+                android:id="@+id/reply_btn"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:text="查看回复" />
+                android:textColor="@color/main"
+                android:gravity="right"
+                android:textSize="12sp"
+                android:text="点击查看回复" />
 
         </LinearLayout>
 

@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.liyuji.app.R;
+import com.liyuji.app.comment.CommentActivity;
 import com.liyuji.app.comment.CommentAdapter;
 import com.liyuji.app.utils.MyTimeUtils;
 import com.liyuji.app.utils.OkHttpCallback;
@@ -36,7 +37,6 @@ import com.liyuji.app.utils.SharedPreferencesUtil;
 import com.liyuji.app.utils.Util;
 import com.liyuji.app.vo.ArticleVO;
 import com.liyuji.app.vo.CommentVO;
-import com.liyuji.app.vo.ReplyVO;
 import com.liyuji.app.vo.ServerResponse;
 
 import java.util.ArrayList;
@@ -65,7 +65,6 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
     private LayoutInflater inflater;
     private CommentAdapter adapter;
 
-    boolean isMe = false;
     int userId = 0;
     int checkUserId = 0;
     int articleId = 0;
@@ -79,9 +78,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         inflater = getLayoutInflater();
 
         Intent intent = getIntent();
-
         articleId = intent.getIntExtra("articleId", 0);
-        checkUserId = intent.getIntExtra("checkUserId", 0);
 
         SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(ArticleActivity.this);
         userId = util.readInt("userId");
@@ -108,18 +105,6 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         mUserNickname.setOnClickListener(this);
         mArticleDel.setOnClickListener(this);
 
-
-        // 判断是否为当前用户发布
-        if (userId == checkUserId) {
-            isMe = true;
-        }
-
-        if(!isMe){
-            mArticleDel.setVisibility(View.GONE);
-        }
-        System.out.println("当前动态接受编号：" + articleId + " 当前动态发布的用户编号：" + checkUserId + " 当前用户是否为动态发布用户：" + isMe);
-
-
         mCommentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -127,7 +112,10 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                 CommentVO map = (CommentVO) itemAdapter.getItem(position);
                 commentId = map.getCommentId();
                 System.out.println("当前评论点击的编号：" + commentId);
-                showReplyDialog();
+                Intent intentC = new Intent(ArticleActivity.this, CommentActivity.class);
+                intentC.putExtra("commentId", commentId);
+                startActivity(intentC);
+//                showReplyDialog();
             }
         });
     }
@@ -154,6 +142,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                         int browseCount = serverResponse.getData().getBrowseCount();
                         String browseCountS = browseCount + "";
                         int communityId = serverResponse.getData().getCommunityId();
+                        checkUserId = serverResponse.getData().getUserId();
 
                         // 用户头像设置
                         Glide.with(ArticleActivity.this)
@@ -175,6 +164,12 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
 
                         // 浏览数量设置
                         mBrowseText.setText(browseCountS);
+
+                        // 判断是否为当前用户发布
+                        if (userId == checkUserId) {
+                            mArticleDel.setVisibility(View.VISIBLE);
+                        }
+                        System.out.println("当前动态接受编号：" + articleId + " 当前动态发布的用户编号：" + checkUserId);
 
                     }
                 });
@@ -249,7 +244,9 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reBack:
-                finish();
+                Intent intentR = new Intent(ArticleActivity.this, MainActivity.class);
+                intentR.putExtra("id",Util.ARITCLEFRAGMENT);
+                startActivity(intentR);
                 break;
             case R.id.like_btn:
                 if (likeStatus != 0) {
@@ -290,7 +287,8 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.headImg:
             case R.id.userNickname:
                 Intent intent = new Intent(ArticleActivity.this, PersonalpageActivity.class);
-                intent.putExtra("userId", userId);
+                intent.putExtra("userId", checkUserId);
+                System.out.println("当前点击用户编号：" + checkUserId);
                 startActivity(intent);
                 break;
             case R.id.article_del:
@@ -307,7 +305,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
                 Intent intentD = new Intent(ArticleActivity.this, MainActivity.class);
-                intentD.putExtra("id",Util.ARITCLEFRAGMENT);
+                intentD.putExtra("id", Util.ARITCLEFRAGMENT);
                 startActivity(intentD);
                 break;
             default:
@@ -325,62 +323,12 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         dialog.show();
     }
 
-    // 跳出弹窗
-    private void showReplyDialog() {
-        BottomSheetDialog dialog = new BottomSheetDialog(ArticleActivity.this);
-        View view = LayoutInflater.from(ArticleActivity.this).inflate(R.layout.dialog_bottomsheet, null);
-        dialog.setContentView(view);
-        deliverReply(dialog);
-        //显示
-        dialog.show();
-    }
-
-    // 发送回复
-    private void deliverReply(BottomSheetDialog dialog) {
-        dialog.findViewById(R.id.deliver_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText deliverContent = dialog.findViewById(R.id.deliver_content);
-
-                String deliverContentS = deliverContent.getText().toString();
-                deliverContent.setError(null);
-
-                if (TextUtils.isEmpty(deliverContentS)) {
-                    deliverContent.setError("回复不能为空");
-                    deliverContent.requestFocus();
-                    return;
-                }
-                ReplyVO replyVO = new ReplyVO();
-                replyVO.setCommentId(commentId);
-                replyVO.setFromUid(userId);
-                replyVO.setReplyContent(deliverContentS);
-
-                String json = JSONObject.toJSONString(replyVO);
-                OkHttpUtils.post(Util.SERVER_ADDR + "addReply", json, new OkHttpCallback() {
-                    @Override
-                    public void onFinish(String status, String msg) {
-                        super.onFinish(status, msg);
-                        Gson gson = new Gson();
-                        ServerResponse serverResponse = gson.fromJson(msg, ServerResponse.class);
-
-                        Looper.prepare();
-                        Toast.makeText(ArticleActivity.this, serverResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                        Looper.loop();
-                    }
-
-                });
-                mCommentList.invalidate();
-            }
-        });
-    }
-
     // 发送评论内容
     private void deliverContent(BottomSheetDialog dialog) {
         dialog.findViewById(R.id.deliver_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText deliverContent = dialog.findViewById(R.id.deliver_content);
-
 
                 String deliverContentS = deliverContent.getText().toString();
                 deliverContent.setError(null);
@@ -422,7 +370,9 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
      * @param listView
      */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
-        if (listView == null) return;
+        if (listView == null) {
+            return;
+        }
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
             // pre-condition

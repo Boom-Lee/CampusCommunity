@@ -38,6 +38,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/user_btn"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/white"
@@ -48,7 +49,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/userNickname"
@@ -95,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/browse_count"
                     android:textColor="@color/Text_color2" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -117,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/like_count"
                     android:textColor="@color/Text_color2" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -140,7 +143,9 @@
                     android:text="@string/follow_count"
                     android:textColor="@color/Text_color2" />
             </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -173,7 +178,6 @@
                 android:src="@mipmap/arrows" />
 
         </RelativeLayout>
-
 
     </LinearLayout>
 
@@ -213,7 +217,6 @@
                 android:src="@mipmap/arrows" />
 
         </RelativeLayout>
-
 
     </LinearLayout>
 
@@ -255,7 +258,6 @@
 
         </RelativeLayout>
 
-
     </LinearLayout>
 
     <View
@@ -264,7 +266,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:background="@color/line" />
-
 
     <LinearLayout
         android:id="@+id/exit"

@@ -36,7 +36,6 @@ public class LikeActivity extends AppCompatActivity implements View.OnClickListe
     LikeAdapter adapter;
     LayoutInflater inflater;
     int articleId = 0;
-    int checkUserId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class LikeActivity extends AppCompatActivity implements View.OnClickListe
 
         inflater = getLayoutInflater();
         listView = findViewById(R.id.like_list);
-
 
         Intent intent = getIntent();
         userId = intent.getIntExtra("userId", 0);
@@ -101,12 +99,8 @@ public class LikeActivity extends AppCompatActivity implements View.OnClickListe
                 Adapter itemAdapter = parent.getAdapter();
                 ArticleLikeVO map = (ArticleLikeVO) itemAdapter.getItem(position);
                 articleId = map.getArticleId();
-                //artcle需要判断 所以随便给个值
-                checkUserId = 0;
-                System.out.println("当前动态点击编号：" + articleId + " 当前动态发布的用户编号：" + checkUserId);
                 Intent intent = new Intent(LikeActivity.this, ArticleActivity.class);
-                intent.putExtra("articleId",articleId);
-                intent.putExtra("checkUserId",checkUserId);
+                intent.putExtra("articleId", articleId);
                 startActivity(intent);
             }
         });

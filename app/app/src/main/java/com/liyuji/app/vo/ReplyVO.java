@@ -12,6 +12,8 @@ public class ReplyVO {
 
     public String userNickname;
 
+    public String userHeadImg;
+
     @Override
     public String toString() {
         return "ReplyVO{" +
@@ -20,6 +22,7 @@ public class ReplyVO {
                 ", replyContent='" + replyContent + '\'' +
                 ", fromUid=" + fromUid +
                 ", userNickname='" + userNickname + '\'' +
+                ", userHeadImg='" + userHeadImg + '\'' +
                 '}';
     }
 
@@ -61,5 +64,13 @@ public class ReplyVO {
 
     public void setUserNickname(String userNickname) {
         this.userNickname = userNickname;
+    }
+
+    public String getUserHeadImg() {
+        return userHeadImg;
+    }
+
+    public void setUserHeadImg(String userHeadImg) {
+        this.userHeadImg = userHeadImg;
     }
 }

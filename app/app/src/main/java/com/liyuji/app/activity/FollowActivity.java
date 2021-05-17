@@ -25,7 +25,6 @@ public class FollowActivity extends AppCompatActivity implements View.OnClickLis
     ImageView reBack;
 
     int userId = 0;
-    boolean isMe = false;
     ListView listView;
     LayoutInflater inflater;
     FollowAdapter adapter;
@@ -87,6 +86,7 @@ public class FollowActivity extends AppCompatActivity implements View.OnClickLis
                             }
                         });
 
+
                     }
                 });
     }
@@ -102,21 +102,5 @@ public class FollowActivity extends AppCompatActivity implements View.OnClickLis
                 break;
         }
     }
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                int firstVisiblePosition = listView.getFirstVisiblePosition(); //屏幕内当前可以看见的第一条数据
-////                if (position - firstVisiblePosition >= 0) {
-////                    View itemView = listView.getChildAt(position - firstVisiblePosition);
-//                    Adapter itemAdapter = parent.getAdapter();
-//                    FollowVO map = (FollowVO) itemAdapter.getItem(position);
-//                    System.out.println(map);
-//                    followedId = map.getFollowedId();
-//                    System.out.println("当前点击用户编号：" + followedId);
-////                }
-//
-//                Intent intent = new Intent(FollowActivity.this,EditpasswordActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
 }

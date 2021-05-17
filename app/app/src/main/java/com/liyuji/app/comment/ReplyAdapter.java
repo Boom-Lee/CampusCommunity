@@ -6,10 +6,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.liyuji.app.R;
 import com.liyuji.app.vo.ReplyVO;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author L
@@ -47,22 +50,37 @@ public class ReplyAdapter extends BaseAdapter {
             System.out.println("当前getView: " + position + "   " + getCount());
             viewHolder = new ReplyAdapter.ViewHolder();
             convertView = inflater.inflate(R.layout.listitem_reply, null);
-            ReplyVO replyVO = (ReplyVO) getItem(position);
 
-            viewHolder.mReplyUserNickname = convertView.findViewById(R.id.reply_userNickname);
+            viewHolder.mReplyHeadImg = convertView.findViewById(R.id.reply_headImg);
+            viewHolder.mReplyNickName = convertView.findViewById(R.id.reply_nickName);
             viewHolder.mReplyContent = convertView.findViewById(R.id.reply_content);
-
-            viewHolder.mReplyUserNickname.setText(replyVO.getUserNickname());
-            viewHolder.mReplyContent.setText(replyVO.getReplyContent());
 
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
+        }
+        ReplyVO replyVO = (ReplyVO) getItem(position);
+        if (replyVO.getUserHeadImg() != null) {
+            Glide.with(parent.getContext())
+                    .load(replyVO.getUserHeadImg())
+                    .into(viewHolder.mReplyHeadImg);
+        }
+
+        if (replyVO.getUserNickname() != null) {
+            viewHolder.mReplyNickName.setText(replyVO.getUserNickname());
+        }
+        if (replyVO.getReplyContent() != null) {
+            viewHolder.mReplyContent.setText(replyVO.getReplyContent());
         }
         return convertView;
     }
 
     class ViewHolder {
-        TextView mReplyUserNickname;
+
+
+        CircleImageView mReplyHeadImg;
+        TextView mReplyNickName;
         TextView mReplyContent;
+
     }
+
 }

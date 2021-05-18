@@ -1,10 +1,6 @@
 package com.liyuji.app.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkCapabilities;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -14,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
@@ -42,21 +37,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
 
-//        //判断网络状态
-//        if (isNetworkConnected(LoginActivity.this)) {
-//            SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(LoginActivity.this);
-//            //判断share...里存的isLogin值   判断登录状态
-//            if (util.readBoolean("isLogin")) {
-//                Log.d(TAG, "onCreate: 已登录");
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        } else {
-//            Toast.makeText(getApplicationContext(), Util.NET_UNCONNECTION, Toast.LENGTH_LONG).show();
-//        }
-
         //设置View为登录界面
         setContentView(R.layout.activity_login);
+
+        if (!Util.isNetworkAvailable(LoginActivity.this)) {
+            Toast.makeText(getApplicationContext(), Util.NET_UNCONNECTION, Toast.LENGTH_LONG).show();
+        }
 
         username_editText = findViewById(R.id.username);
         password_editText = findViewById(R.id.password);
@@ -73,8 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
-                //判断网络状态
-                if (isNetworkConnected(LoginActivity.this)) {
+                if (Util.isNetworkAvailable(LoginActivity.this)) {
                     String username = username_editText.getText().toString();
                     String password = password_editText.getText().toString();
                     username_editText.setError(null);
@@ -98,13 +83,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.register:
-                Intent intent2 = new Intent(this, RegisterActivity.class);
-                startActivity(intent2);
+                if (Util.isNetworkAvailable(LoginActivity.this)) {
+                    Intent intent2 = new Intent(this, RegisterActivity.class);
+                    startActivity(intent2);
+                } else {
+                    Toast.makeText(getApplicationContext(), Util.NET_UNCONNECTION, Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.forgetPassword:
-                Intent intent3 = new Intent(this, ForgetActivity.class);
-                startActivity(intent3);
-                break;
+                if (Util.isNetworkAvailable(LoginActivity.this)) {
+                    Intent intent3 = new Intent(this, ForgetActivity.class);
+                    startActivity(intent3);
+                    break;
+                } else {
+                    Toast.makeText(getApplicationContext(), Util.NET_UNCONNECTION, Toast.LENGTH_LONG).show();
+                }
             default:
                 break;
         }
@@ -132,8 +125,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             util.putBoolean("isLogin", true);
                             util.putInt("userId", serverResponse.getData().getUserId());
-                            util.putString("userNickname",serverResponse.getData().getUserNickname());
-                            util.putString("userHeadImg",serverResponse.getData().getUserHeadImg());
+                            util.putString("userNickname", serverResponse.getData().getUserNickname());
+                            util.putString("userHeadImg", serverResponse.getData().getUserHeadImg());
 
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -145,20 +138,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
-    /**
-     * 判断网络是否连接
-     *
-     * @param ctxt
-     * @return true :连接 ； false: 断开
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static boolean isNetworkConnected(Context ctxt) {
-        ConnectivityManager cm = (ConnectivityManager) ctxt.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkCapabilities networkCapabilities = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            networkCapabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
-        }
-        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
-    }
 
 }

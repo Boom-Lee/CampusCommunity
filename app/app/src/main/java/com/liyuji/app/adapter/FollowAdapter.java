@@ -28,15 +28,12 @@ public class FollowAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     List<FollowVO> followVoList = new ArrayList<>();
-    TextView userNickname;
-    CircleImageView headImg;
-    Button user_follow;
-    String followStatus;
     int countFollow = 0;
     int userId = 0;
     int followedId = 0;
     int userFollowId = 0;
     int checkUserId = 0;
+    String followStatus = null;
 
     public FollowAdapter(LayoutInflater mInflater, List<FollowVO> followVoList) {
         this.mInflater = mInflater;
@@ -60,12 +57,19 @@ public class FollowAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        FollowVO followVO = (FollowVO) getItem(position);
-        View view = mInflater.inflate(R.layout.listitem_follow, null);
 
-        userNickname = view.findViewById(R.id.userNickname);
-        headImg = view.findViewById(R.id.headImg);
-        user_follow = view.findViewById(R.id.user_follow);
+        ViewHolder viewHolder = null;
+        if (null == convertView) {
+            convertView = mInflater.inflate(R.layout.listitem_follow, null);
+
+            viewHolder = new ViewHolder();
+            viewHolder.mHeadImg = convertView.findViewById(R.id.headImg);
+            viewHolder.mUserNickname = convertView.findViewById(R.id.userNickname);
+            viewHolder.mUserFollow = convertView.findViewById(R.id.user_follow);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        FollowVO followVO = (FollowVO) getItem(position);
 
         userId = followVO.getUserId();
         followedId = followVO.getFollowedId();
@@ -73,99 +77,49 @@ public class FollowAdapter extends BaseAdapter {
         String userHeadImg = followVO.getUserHeadImg();
         String userNickName = followVO.getUserNickname();
 
-        SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(view.getContext());
+        SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(convertView.getContext());
         checkUserId = util.readInt("userId");
-        if(userId != checkUserId){
-            user_follow.setVisibility(View.GONE);
+
+        if (userId != checkUserId) {
+            viewHolder.mUserFollow.setVisibility(View.GONE);
         }
 
         // 用户昵称设置
-        userNickname.setText(userNickName);
+        viewHolder.mUserNickname.setText(userNickName);
         // 用户头像设置
         Glide.with(parent.getContext())
                 .load(userHeadImg)
-                .into(headImg);
+                .into(viewHolder.mHeadImg);
         // 设置关注状态
-        selIsFollow();
+        selIsFollow(viewHolder.mUserFollow);
 
+        viewHolder.mUserFollow.setTag(position);
         // 更新关注状态
-        user_follow.setOnClickListener(new View.OnClickListener() {
+        viewHolder.mUserFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateFollow();
+                if (countFollow == 1) {
+                    followStatus = "取消关注";
+                } else {
+                    followStatus = "关注";
+                }
+                System.out.println("当前设置状态   " + followStatus);
+//                viewHolder.mUserFollow.setText(followStatus);
+                System.out.println("当前点击" + position);
             }
         });
 
-        return view;
+        return convertView;
     }
 
-    private void updateFollow() {
-        if (countFollow != 0) {
-            delFollow();
-        } else {
-            addFollow();
-        }
+    class ViewHolder {
+        CircleImageView mHeadImg;
+        TextView mUserNickname;
+        Button mUserFollow;
     }
 
-    private void changeFollow(int countFollow) {
-        if (countFollow == 1) {
-            followStatus = "取消关注";
-        } else {
-            followStatus = "关注";
-        }
-        System.out.println("当前设置状态   " + followStatus);
-        user_follow.setText(followStatus);
-    }
-
-    private void addFollow() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpUtils.get(Util.SERVER_ADDR + "addFollow?userId=" + userId + "&followedId=" + followedId, new OkHttpCallback() {
-                    @Override
-                    public void onFinish(String status, String msg) {
-                        super.onFinish(status, msg);
-                        JSONObject jsonObject = JSONObject.parseObject(msg);
-                        countFollow = jsonObject.getInteger("status");
-                        JSONObject jsonData = jsonObject.getJSONObject("data");
-                        System.out.println("添加Follow得到(0为成功，1为失败): " + countFollow);
-                        // 成功返回0
-                        if (countFollow == 0) {
-                            countFollow = 1;
-                            userFollowId = jsonData.getInteger("userFollowId");
-                        }
-                        System.out.println("添加Follow判断后得到(0为关注，1为取消关注): " + countFollow);
-                        changeFollow(countFollow);
-                    }
-                });
-            }
-        }).start();
-    }
-
-    private void delFollow() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpUtils.get(Util.SERVER_ADDR + "delFollow?userFollowId=" + userFollowId, new OkHttpCallback() {
-                    @Override
-                    public void onFinish(String status, String msg) {
-                        JSONObject jsonObject = JSONObject.parseObject(msg);
-                        countFollow = jsonObject.getInteger("status");
-                        System.out.println("删除Follow得到(0为成功，1为失败): " + countFollow);
-                        //成功返回0
-                        if (countFollow != 0) {
-                            countFollow = 1;
-                        }
-                        System.out.println("删除Follow判断后得到(0为关注，1为取消关注): " + countFollow);
-                        changeFollow(countFollow);
-
-                    }
-                });
-            }
-        }).start();
-    }
-
-    private void selIsFollow() {
+    private void selIsFollow(Button user_follow) {
         OkHttpUtils.get(Util.SERVER_ADDR + "selIsFollow?userId=" + userId + "&followedId=" + followedId, new OkHttpCallback() {
             @Override
             public void onFinish(String status, String msg) {
@@ -190,5 +144,61 @@ public class FollowAdapter extends BaseAdapter {
             }
         });
     }
+
+    private void updateFollow() {
+        if (countFollow != 0) {
+            delFollow();
+        } else {
+            addFollow();
+        }
+    }
+
+    private void addFollow() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils.get(Util.SERVER_ADDR + "addFollow?userId=" + userId + "&followedId=" + followedId, new OkHttpCallback() {
+                    @Override
+                    public void onFinish(String status, String msg) {
+                        super.onFinish(status, msg);
+                        JSONObject jsonObject = JSONObject.parseObject(msg);
+                        countFollow = jsonObject.getInteger("status");
+                        JSONObject jsonData = jsonObject.getJSONObject("data");
+                        System.out.println("添加Follow得到(0为成功，1为失败): " + countFollow);
+                        // 成功返回0
+                        if (countFollow == 0) {
+                            countFollow = 1;
+                            userFollowId = jsonData.getInteger("userFollowId");
+                        }
+                        System.out.println("添加Follow判断后得到(0为关注，1为取消关注): " + countFollow);
+//                        changeFollow(countFollow);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void delFollow() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils.get(Util.SERVER_ADDR + "delFollow?userFollowId=" + userFollowId, new OkHttpCallback() {
+                    @Override
+                    public void onFinish(String status, String msg) {
+                        JSONObject jsonObject = JSONObject.parseObject(msg);
+                        countFollow = jsonObject.getInteger("status");
+                        System.out.println("删除Follow得到(0为成功，1为失败): " + countFollow);
+                        //成功返回0
+                        if (countFollow != 0) {
+                            countFollow = 1;
+                        }
+                        System.out.println("删除Follow判断后得到(0为关注，1为取消关注): " + countFollow);
+//                        changeFollow(countFollow);
+                    }
+                });
+            }
+        }).start();
+    }
+
 
 }

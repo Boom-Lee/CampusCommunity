@@ -40,6 +40,7 @@ import com.liyuji.app.vo.CommentVO;
 import com.liyuji.app.vo.ServerResponse;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -70,6 +71,10 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
     int articleId = 0;
     int likeStatus = 0;
     int commentId = 0;
+
+    String userHeadImg = null;
+    String userNickname = null;
+    Date commentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +187,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void showCommentList() {
+        System.out.println("做show");
         OkHttpUtils.get(Util.SERVER_ADDR + "commentListByArt?articleId=" + articleId, new OkHttpCallback() {
             @Override
             public void onFinish(String status, String msg) {
@@ -202,6 +208,10 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                         commentVO.commentDate = jsonObject.getDate("commentDate");
                         commentVO.commentContent = jsonObject.getString("commentContent");
                         commentVO.userHeadImg = jsonObject.getString("userHeadImg");
+
+                        userHeadImg = jsonObject.getString("userHeadImg");
+                        userNickname = jsonObject.getString("userNickname");
+                        commentDate =   jsonObject.getDate("commentDate");
 
                         commentVOList.add(commentVO);
                     }
@@ -245,7 +255,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.reBack:
                 Intent intentR = new Intent(ArticleActivity.this, MainActivity.class);
-                intentR.putExtra("id",Util.ARITCLEFRAGMENT);
+                intentR.putExtra("id", Util.ARITCLEFRAGMENT);
                 startActivity(intentR);
                 break;
             case R.id.like_btn:
@@ -341,6 +351,9 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                 CommentVO commentVO = new CommentVO();
                 commentVO.setArticleId(articleId);
                 commentVO.setFromUid(userId);
+                commentVO.setUserHeadImg(userHeadImg);
+                commentVO.setUserNickname(userNickname);
+                commentVO.setCommentDate(commentDate);
                 commentVO.setCommentContent(deliverContentS);
 
                 String json = JSONObject.toJSONString(commentVO);
@@ -357,8 +370,11 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                     }
 
                 });
+//                System.out.println(replyVOList + "添加成功");
                 commentVOList.clear();
-                System.out.println("添加成功");
+//                System.out.println(replyVOList + "清除成功");
+                commentVOList.add(commentVO);
+//                replyAdapter.notifyDataSetChanged();
                 showCommentList();
             }
         });

@@ -71,6 +71,7 @@ public class ReplyAdapter extends BaseAdapter {
         if (replyVO.getReplyContent() != null) {
             viewHolder.mReplyContent.setText(replyVO.getReplyContent());
         }
+
         return convertView;
     }
 

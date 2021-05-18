@@ -56,6 +56,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     public List<ReplyVO> replyVOList = new ArrayList<>();
     private LayoutInflater inflater;
+    ReplyAdapter replyAdapter;
 
     /**
      * 评论编号
@@ -77,6 +78,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
      * 文章编号
      */
     int articleId = 0;
+
+    String userHeadImg = null;
+    String userNickname = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +159,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         showReplyList();
     }
 
+    // 设置回复列表
     private void showReplyList() {
         // 设置回复内容
         OkHttpUtils.get(Util.SERVER_ADDR + "replyListByCom?commentId=" + commentId, new OkHttpCallback() {
@@ -176,12 +181,15 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                         replyVO.userNickname = jsonObject.getString("userNickname");
                         replyVO.userHeadImg = jsonObject.getString("userHeadImg");
 
+                        userHeadImg = jsonObject.getString("userHeadImg");
+                        userNickname = jsonObject.getString("userNickname");
+
                         replyVOList.add(replyVO);
                     }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ReplyAdapter replyAdapter = new ReplyAdapter(replyVOList, inflater);
+                            replyAdapter = new ReplyAdapter(replyVOList, inflater);
                             mReplyList.setAdapter(replyAdapter);
                             setListViewHeightBasedOnChildren(mReplyList);
                         }
@@ -189,6 +197,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+
     }
 
     // 跳出弹窗
@@ -219,6 +228,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 ReplyVO replyVO = new ReplyVO();
                 replyVO.setCommentId(commentId);
                 replyVO.setFromUid(userId);
+                replyVO.setUserHeadImg(userHeadImg);
+                replyVO.setUserNickname(userNickname);
                 replyVO.setReplyContent(deliverContentS);
 
                 String json = JSONObject.toJSONString(replyVO);
@@ -235,6 +246,13 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                     }
 
                 });
+
+//                System.out.println(replyVOList + "添加成功");
+                replyVOList.clear();
+//                System.out.println(replyVOList + "清除成功");
+                replyVOList.add(replyVO);
+//                replyAdapter.notifyDataSetChanged();
+                showReplyList();
             }
         });
     }

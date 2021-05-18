@@ -107,7 +107,9 @@ public class BrowseActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reBack:
-                finish();
+                Intent intentR = new Intent(BrowseActivity.this, MainActivity.class);
+                intentR.putExtra("id", Util.PERSONALFRAGMENT);
+                startActivity(intentR);
                 break;
             default:
                 break;

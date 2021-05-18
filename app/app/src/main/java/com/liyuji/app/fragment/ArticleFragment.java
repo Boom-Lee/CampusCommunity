@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.liyuji.app.R;
 import com.liyuji.app.activity.ArticleActivity;
 import com.liyuji.app.activity.DeliverarticleActivity;
-import com.liyuji.app.R;
 import com.liyuji.app.adapter.ArticleAdapter;
 import com.liyuji.app.utils.OkHttpCallback;
 import com.liyuji.app.utils.OkHttpUtils;
@@ -94,6 +94,7 @@ public class ArticleFragment extends Fragment {
                 }
             }
         });
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

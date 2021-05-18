@@ -110,7 +110,9 @@ public class LikeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reBack:
-                finish();
+                Intent intentR = new Intent(LikeActivity.this, MainActivity.class);
+                intentR.putExtra("id", Util.PERSONALFRAGMENT);
+                startActivity(intentR);
                 break;
             default:
                 break;

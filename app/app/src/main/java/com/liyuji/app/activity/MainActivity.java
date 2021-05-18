@@ -24,6 +24,7 @@ import com.liyuji.app.fragment.ArticleFragment;
 import com.liyuji.app.fragment.PersonalFragment;
 import com.liyuji.app.fragment.ScheduleFragment;
 import com.liyuji.app.utils.SharedPreferencesUtil;
+import com.liyuji.app.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private MenuItem menuItem;
 
-    private boolean isGetData=false;
 
     private static final String TAG = "MainActivity";
 
@@ -49,15 +49,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        deLogin();
-
+        //判断网络状态
+        if (Util.isNetworkAvailable(MainActivity.this)) {
+            deLogin();
+        } else {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
         applyForRight();
 
         renderMainActivity();
 
         ActToFragment();
     }
+
 
     private void deLogin() {
         SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(MainActivity.this);
@@ -99,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(0);
-//                bottomNavigationView.setBackgroundColor(Color.WHITE);
                 System.out.println("跳转至ArticleFragment   id:" + id);
                 break;
             case 2:
@@ -110,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(1);
-//                bottomNavigationView.setBackgroundColor(Color.WHITE);
                 System.out.println("跳转至ScheduleFragment   id:" + id);
                 break;
             case 3:
@@ -121,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(2);
-//                bottomNavigationView.setBackgroundColor(Color.BLACK);
                 System.out.println("跳转至AnonymousFragment   id:" + id);
                 break;
             case 4:
@@ -132,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 viewPager.setCurrentItem(3);
-//                bottomNavigationView.setBackgroundColor(Color.WHITE);
                 System.out.println("跳转至PersonalFragment   id:" + id);
                 break;
             default:
@@ -237,8 +238,7 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
             return listFragment.size();
         }
-
-
     }
+
 
 }

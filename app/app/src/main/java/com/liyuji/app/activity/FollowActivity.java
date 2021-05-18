@@ -63,7 +63,6 @@ public class FollowActivity extends AppCompatActivity implements View.OnClickLis
                             for (int i = 0; i < jsonArray.size(); i++) {
                                 // 放入 object
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                System.out.println(jsonObject);
                                 FollowVO followVO = new FollowVO();
 
                                 followVO.userFollowId = jsonObject.getInteger("userFollowId");
@@ -73,7 +72,6 @@ public class FollowActivity extends AppCompatActivity implements View.OnClickLis
                                 followVO.userNickname = jsonObject.getString("userNickname");
                                 followVO.userHeadImg = jsonObject.getString("userHeadImg");
 
-                                System.out.println(followVO);
                                 followVOList.add(followVO);
                             }
                         }
@@ -85,18 +83,18 @@ public class FollowActivity extends AppCompatActivity implements View.OnClickLis
                                 listView.setAdapter(adapter);
                             }
                         });
-
-
                     }
                 });
-    }
 
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reBack:
-                finish();
+                Intent intentR = new Intent(FollowActivity.this, MainActivity.class);
+                intentR.putExtra("id", Util.PERSONALFRAGMENT);
+                startActivity(intentR);
                 break;
             default:
                 break;

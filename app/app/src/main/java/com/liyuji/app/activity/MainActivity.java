@@ -40,33 +40,48 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    //底部导航对象
+    /**
+     * 底部导航对象
+     */
     private BottomNavigationView bottomNavigationView;
 
-    //存储页面对象
+    /**
+     * 存储页面对象
+     */
     private List<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //判断网络状态
+
+        CheckNet();
+
+        applyForRight();
+
+        renderMainActivity();
+
+        actToFragment();
+    }
+
+    /**
+     * 判断网络状态
+     * 若网络未连接 则进入登录界面
+     */
+    private void CheckNet() {
         if (Util.isNetworkAvailable(MainActivity.this)) {
             deLogin();
         } else {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
-        applyForRight();
-
-        renderMainActivity();
-
-        ActToFragment();
     }
 
-
+    /**
+     * 判断用户是否已登录
+     * 通过share...里存的isLogin值   判断登录状态
+     */
     private void deLogin() {
         SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(MainActivity.this);
-        //判断share...里存的isLogin值   判断登录状态
         if (util.readBoolean("isLogin")) {
             Log.d(TAG, "onCreate: 已登录");
         } else {
@@ -74,25 +89,31 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        //设置View为登录界面
+        // 设置View为主页面
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * 申请权限
+     */
     private void applyForRight() {
         if (Build.VERSION.SDK_INT >= 24) {
             int REQUEST_CODE_CONTACT = 101;
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            //验证是否许可权限
+            // 验证是否许可权限
             for (String str : permissions) {
                 if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
-                    //申请权限
+                    // 申请权限
                     this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
                 }
             }
         }
     }
 
-    private void ActToFragment() {
+    /**
+     * Fragment页面跳转
+     */
+    private void actToFragment() {
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
         switch (id) {
@@ -208,8 +229,12 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
     }
 
+    /**
+     * 向ViewPager添加各页面
+     *
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
-        //向ViewPager添加各页面
         fragmentList = new ArrayList<>();
         fragmentList.add(new ArticleFragment());
         fragmentList.add(new ScheduleFragment());
@@ -239,6 +264,5 @@ public class MainActivity extends AppCompatActivity {
             return listFragment.size();
         }
     }
-
 
 }

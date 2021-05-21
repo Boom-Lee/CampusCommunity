@@ -2,6 +2,11 @@ package com.liyuji.app.vo;
 
 import java.util.Date;
 
+/**
+ * 浏览
+ *
+ * @author L
+ */
 public class BrowseVO {
 
     public int userBrowseId;

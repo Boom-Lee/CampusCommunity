@@ -61,8 +61,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                                 userSchedule_title.setText(jsonObject.getString("scheduleTitle"));
                                 userSchedule_content.setText(jsonObject.getString("scheduleContent"));
                                 userSchedule_location.setText(jsonObject.getString("scheduleLocation"));
-                                schedule_starttime.setText(MyTimeUtils.DateToYmdHm(jsonObject.getDate("scheduleStarttime")));
-                                schedule_endtime.setText(MyTimeUtils.DateToYmdHm(jsonObject.getDate("scheduleEndtime")));
+                                schedule_starttime.setText(MyTimeUtils.dateToYmdHm(jsonObject.getDate("scheduleStarttime")));
+                                schedule_endtime.setText(MyTimeUtils.dateToYmdHm(jsonObject.getDate("scheduleEndtime")));
                     }
                 });
 

@@ -141,7 +141,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
 
                         String headImg = serverResponse.getData().getUserHeadImg();
                         String userNickname = serverResponse.getData().getUserNickname();
-                        String articleDeliverTime = MyTimeUtils.DateToYmdHms(serverResponse.getData().getArticleDate());
+                        String articleDeliverTime = MyTimeUtils.dateToYmdHms(serverResponse.getData().getArticleDate());
                         String content = serverResponse.getData().getArticleContent();
                         String articleImg = serverResponse.getData().getArticleImg();
                         int browseCount = serverResponse.getData().getBrowseCount();
@@ -406,3 +406,4 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 }
+

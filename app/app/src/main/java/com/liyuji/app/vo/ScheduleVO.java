@@ -5,6 +5,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.util.Date;
 
 /**
+ * 日程
+ *
  * @author L
  */
 public class ScheduleVO {

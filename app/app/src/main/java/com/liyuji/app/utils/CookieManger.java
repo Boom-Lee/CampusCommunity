@@ -13,7 +13,6 @@ import okhttp3.HttpUrl;
  */
 public class CookieManger implements CookieJar {
 
-
     private static Context mContext;
 
     private static PersistentCookieStore cookieStore;
@@ -23,10 +22,7 @@ public class CookieManger implements CookieJar {
         if (cookieStore == null) {
             cookieStore = new PersistentCookieStore(mContext);
         }
-
-
     }
-
 
     @Override
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {

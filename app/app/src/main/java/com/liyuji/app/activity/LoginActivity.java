@@ -103,6 +103,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     */
     private void Login(String username, String password) {
         OkHttpUtils.get(Util.SERVER_ADDR + "/login?userName=" + username + "&userPassword=" + password,
                 new OkHttpCallback() {

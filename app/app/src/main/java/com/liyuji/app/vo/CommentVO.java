@@ -4,6 +4,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
 
+/**
+ * 评论
+ *
+ * @author L
+ */
 public class CommentVO {
 
     public int commentId;

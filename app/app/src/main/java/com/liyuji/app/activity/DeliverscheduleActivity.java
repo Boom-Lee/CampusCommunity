@@ -116,7 +116,7 @@ public class DeliverscheduleActivity extends AppCompatActivity implements View.O
         TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                textView.setText(MyTimeUtils.DateToTimePickerYmdHm
+                textView.setText(MyTimeUtils.dateToTimePickerYmdHm
                         (date));
             }
         })

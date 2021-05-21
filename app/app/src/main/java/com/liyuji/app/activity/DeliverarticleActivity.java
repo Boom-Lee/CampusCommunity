@@ -49,7 +49,6 @@ public class DeliverarticleActivity extends AppCompatActivity implements View.On
     Uri ImgUri;
     String articleImg;
     int COMMUNITY_ID;
-    int ANONYMOUS_ID = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,3 +195,4 @@ public class DeliverarticleActivity extends AppCompatActivity implements View.On
     }
 
 }
+

@@ -64,7 +64,7 @@ public class ArticleAdapter extends BaseAdapter {
 
         String headImg = articleVO.getUserHeadImg();
         String userNickname = articleVO.getUserNickname();
-        String articleDeliverTime = MyTimeUtils.DateToYmdHms(articleVO.getArticleDate());
+        String articleDeliverTime = MyTimeUtils.dateToYmdHms(articleVO.getArticleDate());
         String content = articleVO.getArticleContent();
         String articleImg = articleVO.getArticleImg();
 

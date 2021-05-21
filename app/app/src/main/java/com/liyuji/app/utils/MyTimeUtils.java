@@ -5,16 +5,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * 时间工具类
  * @author L
  */
 public class MyTimeUtils {
 
     /**
-     * Ymd
+     * 将日期转换成Ymd
      * @param date
      * @return
      */
-    public static String DateToYmd(Date date) {
+    public static String dateToYmd(Date date) {
         //加8个时区
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -26,11 +27,11 @@ public class MyTimeUtils {
     }
 
     /**
-     * YmdHm
+     * 将日期转换成YmdHm
      * @param date
      * @return
      */
-    public static String DateToYmdHm(Date date) {
+    public static String dateToYmdHm(Date date) {
         //加8个时区
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -42,11 +43,11 @@ public class MyTimeUtils {
     }
 
     /**
-     * YmdHms
+     * 将日期转换成YmdHms
      * @param date
      * @return
      */
-    public static String DateToYmdHms(Date date) {
+    public static String dateToYmdHms(Date date) {
         //加8个时区
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -58,11 +59,11 @@ public class MyTimeUtils {
     }
 
     /**
-     * TimePickerYmd
+     * TimePicker将日期转换成Ymd
      * @param date
      * @return
      */
-    public static String DateToTimePickerYmd(Date date) {
+    public static String dateToTimePickerYmd(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Date getDate = calendar.getTime();
@@ -72,11 +73,11 @@ public class MyTimeUtils {
     }
 
     /**
-     * PickerYmdHm
+     * Picker将日期转换成YmdHm
      * @param date
      * @return
      */
-    public static String DateToTimePickerYmdHm(Date date) {
+    public static String dateToTimePickerYmdHm(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         Date getDate = calendar.getTime();

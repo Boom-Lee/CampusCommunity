@@ -1,6 +1,11 @@
 package com.liyuji.app.vo;
 
 
+/**
+ * 动态
+ *
+ * @author L
+ */
 public class Article {
 
     public Integer userId;

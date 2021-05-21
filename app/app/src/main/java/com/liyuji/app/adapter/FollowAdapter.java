@@ -35,6 +35,11 @@ public class FollowAdapter extends BaseAdapter {
     int checkUserId = 0;
     String followStatus = null;
 
+    private CircleImageView mHeadImg;
+    private TextView mUserNickname;
+    private Button mUserFollow;
+
+
     public FollowAdapter(LayoutInflater mInflater, List<FollowVO> followVoList) {
         this.mInflater = mInflater;
         this.followVoList = followVoList;
@@ -58,18 +63,26 @@ public class FollowAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder = null;
-        if (null == convertView) {
-            convertView = mInflater.inflate(R.layout.listitem_follow, null);
+//        ViewHolder viewHolder = null;
+//        if (null == convertView) {
+//            convertView = mInflater.inflate(R.layout.listitem_follow, null);
+//
+//            viewHolder = new ViewHolder();
+//            viewHolder.mHeadImg = convertView.findViewById(R.id.headImg);
+//            viewHolder.mUserNickname = convertView.findViewById(R.id.userNickname);
+//            viewHolder.mUserFollow = convertView.findViewById(R.id.user_follow);
+//        } else {
+//            viewHolder = (ViewHolder) convertView.getTag();
+//        }
+//        FollowVO followVO = (FollowVO) getItem(position);
 
-            viewHolder = new ViewHolder();
-            viewHolder.mHeadImg = convertView.findViewById(R.id.headImg);
-            viewHolder.mUserNickname = convertView.findViewById(R.id.userNickname);
-            viewHolder.mUserFollow = convertView.findViewById(R.id.user_follow);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
         FollowVO followVO = (FollowVO) getItem(position);
+        View view = mInflater.inflate(R.layout.listitem_follow, null);
+
+
+        mHeadImg = view.findViewById(R.id.headImg);
+        mUserNickname = view.findViewById(R.id.userNickname);
+        mUserFollow = view.findViewById(R.id.user_follow);
 
         userId = followVO.getUserId();
         followedId = followVO.getFollowedId();
@@ -77,46 +90,33 @@ public class FollowAdapter extends BaseAdapter {
         String userHeadImg = followVO.getUserHeadImg();
         String userNickName = followVO.getUserNickname();
 
-        SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(convertView.getContext());
+        SharedPreferencesUtil util = SharedPreferencesUtil.getInstance(view.getContext());
         checkUserId = util.readInt("userId");
 
-        if (userId != checkUserId) {
-            viewHolder.mUserFollow.setVisibility(View.GONE);
-        }
 
         // 用户昵称设置
-        viewHolder.mUserNickname.setText(userNickName);
+        mUserNickname.setText(userNickName);
         // 用户头像设置
         Glide.with(parent.getContext())
                 .load(userHeadImg)
-                .into(viewHolder.mHeadImg);
-        // 设置关注状态
-        selIsFollow(viewHolder.mUserFollow);
+                .into(mHeadImg);
 
-        viewHolder.mUserFollow.setTag(position);
-        // 更新关注状态
-        viewHolder.mUserFollow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateFollow();
-                if (countFollow == 1) {
-                    followStatus = "取消关注";
-                } else {
-                    followStatus = "关注";
+        if (userId != checkUserId) {
+            mUserFollow.setVisibility(View.GONE);
+        } else {
+            // 设置关注状态
+            selIsFollow(mUserFollow);
+
+            // 更新关注状态
+            mUserFollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateFollow();
                 }
-                System.out.println("当前设置状态   " + followStatus);
-//                viewHolder.mUserFollow.setText(followStatus);
-                System.out.println("当前点击" + position);
-            }
-        });
+            });
+        }
 
-        return convertView;
-    }
-
-    class ViewHolder {
-        CircleImageView mHeadImg;
-        TextView mUserNickname;
-        Button mUserFollow;
+        return view;
     }
 
     private void selIsFollow(Button user_follow) {
@@ -145,6 +145,7 @@ public class FollowAdapter extends BaseAdapter {
         });
     }
 
+
     private void updateFollow() {
         if (countFollow != 0) {
             delFollow();
@@ -171,11 +172,21 @@ public class FollowAdapter extends BaseAdapter {
                             userFollowId = jsonData.getInteger("userFollowId");
                         }
                         System.out.println("添加Follow判断后得到(0为关注，1为取消关注): " + countFollow);
-//                        changeFollow(countFollow);
+                        changeFollow(countFollow);
                     }
                 });
             }
         }).start();
+    }
+
+    private void changeFollow(int countFollow) {
+        if (countFollow == 1) {
+            followStatus = "取消关注";
+        } else {
+            followStatus = "关注";
+        }
+        System.out.println("当前设置状态   " + followStatus);
+        mUserFollow.setText(followStatus);
     }
 
     private void delFollow() {
@@ -193,12 +204,11 @@ public class FollowAdapter extends BaseAdapter {
                             countFollow = 1;
                         }
                         System.out.println("删除Follow判断后得到(0为关注，1为取消关注): " + countFollow);
-//                        changeFollow(countFollow);
+                        changeFollow(countFollow);
                     }
                 });
             }
         }).start();
     }
-
-
 }
+

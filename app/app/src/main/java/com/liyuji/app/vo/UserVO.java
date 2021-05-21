@@ -4,6 +4,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
 
+/**
+ * 用户
+ *
+ * @author L
+ */
 public class UserVO {
 
     public int userId;

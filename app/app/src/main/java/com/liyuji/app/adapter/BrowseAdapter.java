@@ -59,10 +59,10 @@ public class BrowseAdapter extends BaseAdapter {
 
         String headImg = browseVO.getUserHeadImg();
         String userNickname = browseVO.getUserNickName();
-        String articleDeliverTime = MyTimeUtils.DateToYmdHms(browseVO.getArticleDate());
+        String articleDeliverTime = MyTimeUtils.dateToYmdHms(browseVO.getArticleDate());
         String content = browseVO.getArticleContent();
         String articleImg = browseVO.getArticleImg();
-        String browseTime = MyTimeUtils.DateToYmdHms(browseVO.getUserBrowseDate());
+        String browseTime = MyTimeUtils.dateToYmdHms(browseVO.getUserBrowseDate());
 
         // 用户头像设置
         Glide.with(parent.getContext())

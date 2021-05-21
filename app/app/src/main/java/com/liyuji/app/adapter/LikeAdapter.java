@@ -58,7 +58,7 @@ public class LikeAdapter extends BaseAdapter {
 
         String headImg = articleLikeVO.getUserHeadImg();
         String userNickname = articleLikeVO.getUserNickname();
-        String articleDeliverTime = MyTimeUtils.DateToYmdHms(articleLikeVO.getArticleDate());
+        String articleDeliverTime = MyTimeUtils.dateToYmdHms(articleLikeVO.getArticleDate());
         String content = articleLikeVO.getArticleContent();
         String articleImg = articleLikeVO.getArticleImg();
 

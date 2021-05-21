@@ -19,6 +19,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+/**
+ * OKHttp工具类
+ * @author L
+ */
 public class OkHttpUtils {
     private static final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
     private static Context context;
@@ -32,7 +36,6 @@ public class OkHttpUtils {
                 public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list) {
                     cookieStore.put(httpUrl.host(), list);
                 }
-
 
                 //响应时的cookie
                 @Override
@@ -92,12 +95,12 @@ public class OkHttpUtils {
         CLIENT.newCall(request).enqueue(callback);
     }
 
-
     /**
-     * 图片上传
-     * url 后台接口
-     * userId Y哦
-     * filePath 文件路径
+     * 头像上传
+     * @param url       后台接口
+     * @param userId    用户编号
+     * @param filePath
+     * @param callback
      */
     public static void upload(String url,int userId, String filePath, OkHttpCallback callback) {
         File file = new File(filePath);
@@ -114,7 +117,10 @@ public class OkHttpUtils {
     }
 
     /**
-     *
+     * 下载文件
+     * @param url
+     * @param saveDir
+     * @param callback
      */
     public static void downFile(String url, final String saveDir, OkHttpCallback callback) {
         callback.url = url;

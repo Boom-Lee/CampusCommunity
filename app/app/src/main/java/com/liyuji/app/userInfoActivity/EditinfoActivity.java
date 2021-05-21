@@ -124,12 +124,12 @@ public class EditinfoActivity extends AppCompatActivity implements View.OnClickL
                         userSex = serverResponse.getData().getUserSex();
                         userIntro = serverResponse.getData().getUserIntro();
                         if (serverResponse.getData().getUserBirthday() != null) {
-                            userBirthday = MyTimeUtils.DateToYmd(serverResponse.getData().getUserBirthday());
+                            userBirthday = MyTimeUtils.dateToYmd(serverResponse.getData().getUserBirthday());
                         }
                         userEmail = serverResponse.getData().getUserEmail();
                         userCity = serverResponse.getData().getUserCity();
                         userSchool = serverResponse.getData().getUserSchool();
-                        userRegisterTime = MyTimeUtils.DateToYmd(serverResponse.getData().getUserRegisterTime());
+                        userRegisterTime = MyTimeUtils.dateToYmd(serverResponse.getData().getUserRegisterTime());
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -292,7 +292,7 @@ public class EditinfoActivity extends AppCompatActivity implements View.OnClickL
         TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                mUserBirthday.setText(MyTimeUtils.DateToTimePickerYmd(date));
+                mUserBirthday.setText(MyTimeUtils.dateToTimePickerYmd(date));
                 String EditBirthDay = mUserBirthday.getText().toString();
                 OkHttpUtils.get(Util.SERVER_ADDR + "updateUserBirthday?userId=" + userId + "&userBirthday=" + EditBirthDay, new OkHttpCallback() {
                     @Override

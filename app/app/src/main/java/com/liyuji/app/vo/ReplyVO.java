@@ -1,5 +1,10 @@
 package com.liyuji.app.vo;
 
+/**
+ * 回复
+ *
+ * @author L
+ */
 public class ReplyVO {
 
     public int replyId;

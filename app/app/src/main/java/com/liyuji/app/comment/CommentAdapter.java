@@ -73,7 +73,7 @@ public class CommentAdapter extends BaseAdapter {
         // 设置评论内容
         viewHolder.mCommentContent.setText(commentVO.getCommentContent());
         // 设置评论时间
-        viewHolder.mCommentTime.setText(MyTimeUtils.DateToYmdHms(commentVO.getCommentDate()));
+        viewHolder.mCommentTime.setText(MyTimeUtils.dateToYmdHms(commentVO.getCommentDate()));
         return convertView;
     }
 

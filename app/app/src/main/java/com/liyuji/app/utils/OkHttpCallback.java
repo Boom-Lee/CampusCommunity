@@ -17,17 +17,27 @@ public class OkHttpCallback implements Callback {
     public String url;
     public String result;
 
-
+    /**
+     * 响应
+     *
+     * @param call
+     * @param response
+     * @throws IOException
+     */
     @Override
     public void onResponse(Call call, Response response) throws IOException {
         Log.e(TAG, "url: " + url);
         result = response.body().string().toString();
-
         Log.e(TAG, "请求成功: " + result);
         onFinish("success", result);
     }
 
-
+    /**
+     * 失败
+     *
+     * @param call
+     * @param e
+     */
     @Override
     public void onFailure(Call call, IOException e) {
         Log.e(TAG, "url: " + url);
@@ -35,6 +45,12 @@ public class OkHttpCallback implements Callback {
         onFinish("failure", e.toString());
     }
 
+    /**
+     * 完成
+     *
+     * @param status
+     * @param msg
+     */
     public void onFinish(String status, String msg) {
         Log.e(TAG, "url: " + url + " status：" + status);
     }

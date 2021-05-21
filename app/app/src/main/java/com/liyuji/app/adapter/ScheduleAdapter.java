@@ -61,8 +61,8 @@ public class ScheduleAdapter extends BaseAdapter {
             viewHolder.mScheduleEndtime = convertView.findViewById(R.id.schedule_endtime);
 
             viewHolder.mScheduleTitle.setText(scheduleVO.getScheduleTitle());
-            viewHolder.mScheduleStarttime.setText(MyTimeUtils.DateToTimePickerYmdHm(scheduleVO.getScheduleStarttime()));
-            viewHolder.mScheduleEndtime.setText(MyTimeUtils.DateToTimePickerYmdHm(scheduleVO.getScheduleEndtime()));
+            viewHolder.mScheduleStarttime.setText(MyTimeUtils.dateToTimePickerYmdHm(scheduleVO.getScheduleStarttime()));
+            viewHolder.mScheduleEndtime.setText(MyTimeUtils.dateToTimePickerYmdHm(scheduleVO.getScheduleEndtime()));
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

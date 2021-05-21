@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * 喜欢
+ *
  * @author L
  */
 public class ArticleLikeVO {

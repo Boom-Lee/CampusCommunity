@@ -136,7 +136,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                         String commentContent = serverResponse.getData().getCommentContent();
                         articleId = serverResponse.getData().getArticleId();
                         checkUserId = serverResponse.getData().getFromUid();
-                        String commentTime = MyTimeUtils.DateToYmdHms(serverResponse.getData().getCommentDate());
+                        String commentTime = MyTimeUtils.dateToYmdHms(serverResponse.getData().getCommentDate());
 
                         // 用户头像设置
                         Glide.with(CommentActivity.this)

@@ -215,45 +215,50 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         dialog.findViewById(R.id.deliver_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText deliverContent = dialog.findViewById(R.id.deliver_content);
+                int i = 1;
+                if (i == 1) {
+                    EditText deliverContent = dialog.findViewById(R.id.deliver_content);
 
-                String deliverContentS = deliverContent.getText().toString();
-                deliverContent.setError(null);
+                    String deliverContentS = deliverContent.getText().toString();
+                    deliverContent.setError(null);
 
-                if (TextUtils.isEmpty(deliverContentS)) {
-                    deliverContent.setError("回复不能为空");
-                    deliverContent.requestFocus();
-                    return;
-                }
-                ReplyVO replyVO = new ReplyVO();
-                replyVO.setCommentId(commentId);
-                replyVO.setFromUid(userId);
-                replyVO.setUserHeadImg(userHeadImg);
-                replyVO.setUserNickname(userNickname);
-                replyVO.setReplyContent(deliverContentS);
-
-                String json = JSONObject.toJSONString(replyVO);
-                OkHttpUtils.post(Util.SERVER_ADDR + "addReply", json, new OkHttpCallback() {
-                    @Override
-                    public void onFinish(String status, String msg) {
-                        super.onFinish(status, msg);
-                        Gson gson = new Gson();
-                        ServerResponse serverResponse = gson.fromJson(msg, ServerResponse.class);
-
-                        Looper.prepare();
-                        Toast.makeText(CommentActivity.this, serverResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                    if (TextUtils.isEmpty(deliverContentS)) {
+                        deliverContent.setError("回复不能为空");
+                        deliverContent.requestFocus();
+                        return;
                     }
+                    ReplyVO replyVO = new ReplyVO();
+                    replyVO.setCommentId(commentId);
+                    replyVO.setFromUid(userId);
+                    replyVO.setUserHeadImg(userHeadImg);
+                    replyVO.setUserNickname(userNickname);
+                    replyVO.setReplyContent(deliverContentS);
 
-                });
+                    String json = JSONObject.toJSONString(replyVO);
+                    OkHttpUtils.post(Util.SERVER_ADDR + "addReply", json, new OkHttpCallback() {
+                        @Override
+                        public void onFinish(String status, String msg) {
+                            super.onFinish(status, msg);
+                            Gson gson = new Gson();
+                            ServerResponse serverResponse = gson.fromJson(msg, ServerResponse.class);
 
-//                System.out.println(replyVOList + "添加成功");
-                replyVOList.clear();
+                            Looper.prepare();
+                            Toast.makeText(CommentActivity.this, serverResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+
+                    });
+                    //                System.out.println(replyVOList + "添加成功");
+                    replyVOList.clear();
 //                System.out.println(replyVOList + "清除成功");
-                replyVOList.add(replyVO);
+                    replyVOList.add(replyVO);
 //                replyAdapter.notifyDataSetChanged();
-                showReplyList();
+                    i = 0;
+
+                }
+                    showReplyList();
             }
+
         });
     }
 

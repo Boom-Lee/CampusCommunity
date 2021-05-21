@@ -45,7 +45,8 @@ public class ArticleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         selComStatus();
-        if (COMMUNITY_STATUS != 0) {
+        if (COMMUNITY_STATUS == 0) {
+            root = inflater.inflate(R.layout.fragment_article, container, false);
             articleVOList.clear();
             listView = root.findViewById(R.id.article_list);
 

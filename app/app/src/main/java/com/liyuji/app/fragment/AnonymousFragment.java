@@ -41,7 +41,7 @@ public class AnonymousFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         selComStatus();
-        if (COMMUNITY_STATUS != 0) {
+        if (COMMUNITY_STATUS == 0) {
             root = inflater.inflate(R.layout.fragment_anonymous, container, false);
             articleVOList.clear();
             listView = root.findViewById(R.id.anonymous_list);

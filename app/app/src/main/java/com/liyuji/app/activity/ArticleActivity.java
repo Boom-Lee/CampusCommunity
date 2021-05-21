@@ -211,7 +211,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
 
                         userHeadImg = jsonObject.getString("userHeadImg");
                         userNickname = jsonObject.getString("userNickname");
-                        commentDate =   jsonObject.getDate("commentDate");
+                        commentDate = jsonObject.getDate("commentDate");
 
                         commentVOList.add(commentVO);
                     }
@@ -338,43 +338,49 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         dialog.findViewById(R.id.deliver_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText deliverContent = dialog.findViewById(R.id.deliver_content);
+                int i = 1;
+                if (i == 1) {
+                    EditText deliverContent = dialog.findViewById(R.id.deliver_content);
 
-                String deliverContentS = deliverContent.getText().toString();
-                deliverContent.setError(null);
+                    String deliverContentS = deliverContent.getText().toString();
+                    deliverContent.setError(null);
 
-                if (TextUtils.isEmpty(deliverContentS)) {
-                    deliverContent.setError("评论不能为空");
-                    deliverContent.requestFocus();
-                    return;
-                }
-                CommentVO commentVO = new CommentVO();
-                commentVO.setArticleId(articleId);
-                commentVO.setFromUid(userId);
-                commentVO.setUserHeadImg(userHeadImg);
-                commentVO.setUserNickname(userNickname);
-                commentVO.setCommentDate(commentDate);
-                commentVO.setCommentContent(deliverContentS);
-
-                String json = JSONObject.toJSONString(commentVO);
-                OkHttpUtils.post(Util.SERVER_ADDR + "addComment", json, new OkHttpCallback() {
-                    @Override
-                    public void onFinish(String status, String msg) {
-                        super.onFinish(status, msg);
-                        Gson gson = new Gson();
-                        ServerResponse serverResponse = gson.fromJson(msg, ServerResponse.class);
-
-                        Looper.prepare();
-                        Toast.makeText(ArticleActivity.this, serverResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                    if (TextUtils.isEmpty(deliverContentS)) {
+                        deliverContent.setError("评论不能为空");
+                        deliverContent.requestFocus();
+                        return;
                     }
+                    CommentVO commentVO = new CommentVO();
+                    commentVO.setArticleId(articleId);
+                    commentVO.setFromUid(userId);
+                    commentVO.setUserHeadImg(userHeadImg);
+                    commentVO.setUserNickname(userNickname);
+                    commentVO.setCommentDate(commentDate);
+                    commentVO.setCommentContent(deliverContentS);
 
-                });
+                    String json = JSONObject.toJSONString(commentVO);
+                    OkHttpUtils.post(Util.SERVER_ADDR + "addComment", json, new OkHttpCallback() {
+                        @Override
+                        public void onFinish(String status, String msg) {
+                            super.onFinish(status, msg);
+                            Gson gson = new Gson();
+                            ServerResponse serverResponse = gson.fromJson(msg, ServerResponse.class);
+
+                            Looper.prepare();
+                            Toast.makeText(ArticleActivity.this, serverResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+
+                    });
+
 //                System.out.println(replyVOList + "添加成功");
-                commentVOList.clear();
+                    commentVOList.clear();
 //                System.out.println(replyVOList + "清除成功");
-                commentVOList.add(commentVO);
+                    commentVOList.add(commentVO);
 //                replyAdapter.notifyDataSetChanged();
+                    i = 0;
+
+                }
                 showCommentList();
             }
         });
